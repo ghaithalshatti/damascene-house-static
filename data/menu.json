@@ -1,0 +1,32 @@
+{
+  "updatedAt": "2026-11-15T00:00:00.000Z",
+  "categories": [
+    { "id": "c-shawarma", "name": { "ar": "شاورما", "en": "Shawarma" }, "icon": "🥙" },
+    { "id": "c-grill", "name": { "ar": "مشاوي", "en": "Grills" }, "icon": "🍢" },
+    { "id": "c-mezze", "name": { "ar": "مقبلات وسلطات", "en": "Mezze & Salads" }, "icon": "🥗" },
+    { "id": "c-mains", "name": { "ar": "أطباق رئيسية", "en": "Main Dishes" }, "icon": "🍲" },
+    { "id": "c-dessert", "name": { "ar": "حلويات", "en": "Desserts" }, "icon": "🍰" },
+    { "id": "c-drinks", "name": { "ar": "مشروبات", "en": "Drinks" }, "icon": "🥤" }
+  ],
+  "items": [
+    { "id": "i-sh1", "categoryId": "c-shawarma", "name": { "ar": "سندويشة شاورما دجاج", "en": "Chicken Shawarma Sandwich" }, "description": { "ar": "خبز صاج، شاورما دجاج متبّلة، ثوم، مخلل وبطاطا", "en": "Saj bread, marinated chicken, garlic sauce, pickles and fries" }, "price": 250, "sizes": [ { "name": { "ar": "عادي", "en": "Regular" }, "price": 250 }, { "name": { "ar": "دبل", "en": "Double" }, "price": 400 } ], "image": "", "available": true, "tags": ["popular"] },
+    { "id": "i-sh2", "categoryId": "c-shawarma", "name": { "ar": "شاورما عربي", "en": "Arabic Shawarma Plate" }, "description": { "ar": "شاورما مقطّعة مع ثومية وبطاطا ومخلل وخبز محمّص", "en": "Sliced shawarma with garlic, fries, pickles and toasted bread" }, "price": 450, "sizes": [], "image": "", "available": true, "tags": ["popular"] },
+    { "id": "i-sh3", "categoryId": "c-shawarma", "name": { "ar": "شاورما لحم", "en": "Beef Shawarma" }, "description": { "ar": "لحم عجل متبّل بطحينة وبقدونس وبصل", "en": "Spiced beef with tahini, parsley and onion" }, "price": 350, "sizes": [], "image": "", "available": true, "tags": [] },
+    { "id": "i-gr1", "categoryId": "c-grill", "name": { "ar": "كباب حلبي", "en": "Aleppo Kebab" }, "description": { "ar": "لحم غنم مفروم مشوي على الفحم مع بندورة وفليفلة", "en": "Charcoal-grilled minced lamb with tomato and pepper" }, "price": 1100, "sizes": [], "image": "", "available": true, "tags": ["spicy"] },
+    { "id": "i-gr2", "categoryId": "c-grill", "name": { "ar": "شيش طاووق", "en": "Shish Tawook" }, "description": { "ar": "قطع صدر دجاج متبّلة بالليمون والثوم مع ثومية", "en": "Chicken breast cubes in lemon & garlic, served with toum" }, "price": 950, "sizes": [], "image": "", "available": true, "tags": [] },
+    { "id": "i-gr3", "categoryId": "c-grill", "name": { "ar": "مشاوي مشكّلة", "en": "Mixed Grill" }, "description": { "ar": "كباب، شيش طاووق، لحم مشوي، تكفي شخصين", "en": "Kebab, tawook and lamb cubes — serves two" }, "price": 1600, "sizes": [], "image": "", "available": true, "tags": ["new"] },
+    { "id": "i-mz1", "categoryId": "c-mezze", "name": { "ar": "حمّص بطحينة", "en": "Hummus" }, "description": { "ar": "حمص ناعم بالطحينة وزيت الزيتون", "en": "Creamy chickpeas with tahini and olive oil" }, "price": 300, "sizes": [], "image": "", "available": true, "tags": ["veg"] },
+    { "id": "i-mz2", "categoryId": "c-mezze", "name": { "ar": "متبّل", "en": "Mutabbal" }, "description": { "ar": "باذنجان مشوي بالطحينة والرمان", "en": "Smoky eggplant with tahini and pomegranate" }, "price": 300, "sizes": [], "image": "", "available": true, "tags": ["veg"] },
+    { "id": "i-mz3", "categoryId": "c-mezze", "name": { "ar": "فتوش", "en": "Fattoush" }, "description": { "ar": "خضار طازجة، خبز مقلي، سمّاق ودبس رمان", "en": "Fresh vegetables, crispy bread, sumac and pomegranate molasses" }, "price": 350, "sizes": [], "image": "", "available": true, "tags": ["veg"] },
+    { "id": "i-mz4", "categoryId": "c-mezze", "name": { "ar": "كبّة مقلية", "en": "Fried Kibbeh" }, "description": { "ar": "٤ قطع محشوة باللحم والصنوبر", "en": "4 pieces stuffed with meat and pine nuts" }, "price": 450, "sizes": [], "image": "", "available": true, "tags": ["popular"] },
+    { "id": "i-mn1", "categoryId": "c-mains", "name": { "ar": "شيخ المحشي", "en": "Sheikh al-Mahshi" }, "description": { "ar": "كوسا محشي باللحم بصلصة اللبن مع رز", "en": "Zucchini stuffed with meat in yogurt sauce, with rice" }, "price": 1200, "sizes": [], "image": "", "available": true, "tags": [] },
+    { "id": "i-mn2", "categoryId": "c-mains", "name": { "ar": "فتّة حمص", "en": "Fatteh" }, "description": { "ar": "خبز محمّص، حمص، لبن بالطحينة وصنوبر", "en": "Toasted bread, chickpeas, tahini yogurt and pine nuts" }, "price": 450, "sizes": [], "image": "", "available": true, "tags": [] },
+    { "id": "i-mn3", "categoryId": "c-mains", "name": { "ar": "مندي لحم", "en": "Lamb Mandi" }, "description": { "ar": "لحم غنم مع رز مندي مدخّن", "en": "Lamb with smoked mandi rice" }, "price": 1800, "sizes": [], "image": "", "available": false, "tags": [] },
+    { "id": "i-ds1", "categoryId": "c-dessert", "name": { "ar": "كنافة نابلسية", "en": "Knafeh" }, "description": { "ar": "كنافة بالجبنة والقطر", "en": "Cheese knafeh with syrup" }, "price": 500, "sizes": [], "image": "", "available": true, "tags": ["popular"] },
+    { "id": "i-ds2", "categoryId": "c-dessert", "name": { "ar": "بوظة عربية بالفستق", "en": "Arabic Ice Cream" }, "description": { "ar": "بوظة بالسحلب مغطاة بالفستق الحلبي", "en": "Salep ice cream topped with pistachio" }, "price": 450, "sizes": [], "image": "", "available": true, "tags": [] },
+    { "id": "i-dr1", "categoryId": "c-drinks", "name": { "ar": "ليمون بالنعنع", "en": "Lemon Mint" }, "description": { "ar": "ليمون طازج مع نعنع وثلج", "en": "Fresh lemon with mint and ice" }, "price": 200, "sizes": [ { "name": { "ar": "صغير", "en": "Small" }, "price": 200 }, { "name": { "ar": "كبير", "en": "Large" }, "price": 300 } ], "image": "", "available": true, "tags": [] },
+    { "id": "i-dr2", "categoryId": "c-drinks", "name": { "ar": "عصير برتقال طبيعي", "en": "Fresh Orange Juice" }, "description": { "ar": "برتقال معصور طازجاً", "en": "Freshly squeezed oranges" }, "price": 250, "sizes": [ { "name": { "ar": "صغير", "en": "Small" }, "price": 250 }, { "name": { "ar": "كبير", "en": "Large" }, "price": 350 } ], "image": "", "available": true, "tags": [] },
+    { "id": "i-dr3", "categoryId": "c-drinks", "name": { "ar": "عيران", "en": "Ayran" }, "description": { "ar": "لبن مخفوق بارد", "en": "Chilled yogurt drink" }, "price": 100, "sizes": [], "image": "", "available": true, "tags": [] },
+    { "id": "i-dr4", "categoryId": "c-drinks", "name": { "ar": "قهوة عربية", "en": "Arabic Coffee" }, "description": { "ar": "قهوة بالهال", "en": "Coffee with cardamom" }, "price": 100, "sizes": [], "image": "", "available": true, "tags": [] }
+  ]
+}

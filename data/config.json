@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "restaurant": {
+    "name": {
+      "ar": "البيت الدمشقي",
+      "en": "Damascene House"
+    },
+    "tagline": {
+      "ar": "مذاق الشام الأصيل منذ ١٩٩٨",
+      "en": "Authentic Levantine taste since 1998"
+    },
+    "logo": "",
+    "cover": "",
+    "phone": "+963 11 000 0000",
+    "address": {
+      "ar": "دمشق - باب توما - الشارع الرئيسي",
+      "en": "Bab Touma, Main Street, Damascus"
+    },
+    "hours": {
+      "ar": "يومياً من ١٢ ظهراً حتى ١٢ ليلاً",
+      "en": "Daily, 12 PM – 12 AM"
+    },
+    "mapUrl": "",
+    "social": {
+      "instagram": "",
+      "facebook": "",
+      "tiktok": "",
+      "website": ""
+    }
+  },
+  "theme": {
+    "id": "classic",
+    "primary": "#B5532C"
+  },
+  "currency": {
+    "ar": "ل.س",
+    "en": "SYP"
+  },
+  "languages": {
+    "default": "ar",
+    "enabled": [
+      "ar",
+      "en"
+    ]
+  },
+  "tables": {
+    "count": 12
+  },
+  "github": {
+    "owner": "",
+    "repo": "",
+    "branch": "main"
+  },
+  "poweredBy": {
+    "name": "Ghaith Alshatti",
+    "url": "https://ghaithalshatti.github.io"
+  }
+}
