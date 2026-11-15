@@ -1,5 +1,4 @@
 {
-  "version": 1,
   "restaurant": {
     "name": {
       "ar": "البيت الدمشقي",
@@ -29,8 +28,8 @@
     }
   },
   "theme": {
-    "id": "classic",
-    "primary": "#B5532C"
+    "id": "ocean",
+    "primary": "#0e6f8f"
   },
   "currency": {
     "ar": "ل.س",
@@ -47,12 +46,13 @@
     "count": 12
   },
   "github": {
-    "owner": "",
-    "repo": "",
+    "owner": "ghaithalshatti",
+    "repo": "damascene-house-static",
     "branch": "main"
   },
   "poweredBy": {
     "name": "Ghaith Alshatti",
     "url": "https://ghaithalshatti.github.io"
-  }
+  },
+  "version": 1
 }
