@@ -248,3 +248,23 @@ html[data-skin="ocean"] .adm-top::before, html[data-skin="midnight"] .adm-top::b
 .steps { margin: 0; padding-inline-start: 22px; display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
 .steps li::marker { color: var(--primary); font-weight: 700; }
 .rules { margin: 0; max-height: 220px; overflow: auto; direction: ltr; text-align: left; font-size: 12px; line-height: 1.5; background: #1d1a16; color: #f4efe8; padding: 12px 14px; border-radius: 12px; white-space: pre; }
+
+/* Design-style picker (setup) */
+.styles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.style-card { display: grid; gap: 3px; padding: 8px 8px 10px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface); text-align: start; transition: border-color .2s, box-shadow .2s, transform .15s; }
+.style-card:active { transform: scale(.97); }
+.style-card.on { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent); }
+.style-card b { font-size: 13.5px; margin-top: 4px; }
+.style-card small { font-size: 11.5px; color: var(--muted); }
+.style-mini { position: relative; height: 74px; border-radius: 12px; overflow: hidden; display: grid; gap: 6px; padding: 10px; align-content: start; }
+.style-mini i { display: block; height: 14px; border-radius: 6px; }
+.style-mini i:first-child { height: 20px; }
+.style-mini--classic { background: var(--bg); border: 1px solid var(--line); }
+.style-mini--classic i { background: var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.style-mini--classic i:first-child { background: var(--primary); }
+.style-mini--glass { background:
+  radial-gradient(60% 70% at 10% 10%, color-mix(in srgb, var(--primary) 55%, transparent), transparent 70%),
+  radial-gradient(60% 70% at 95% 90%, color-mix(in srgb, color-mix(in srgb, var(--primary) 50%, #F0ABFC) 50%, transparent), transparent 70%),
+  radial-gradient(50% 60% at 90% 10%, color-mix(in srgb, color-mix(in srgb, var(--primary) 50%, #7DD3FC) 45%, transparent), transparent 70%), var(--bg); }
+.style-mini--glass i { background: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.7); backdrop-filter: blur(4px); border-radius: 8px; }
+.style-mini--glass i:first-child { background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 70%, #fff), var(--primary)); border: 0; }

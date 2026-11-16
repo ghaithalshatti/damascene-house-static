@@ -42,7 +42,7 @@ export const saveDraft = { config: (c) => ls.set(DRAFT_CONFIG, c), menu: (m) => 
 export function normalizeConfig(c = {}) {
   const d = {
     restaurant: { name: { ar: '', en: '' }, tagline: { ar: '', en: '' }, logo: '', cover: '', phone: '', address: { ar: '', en: '' }, hours: { ar: '', en: '' }, mapUrl: '', social: { instagram: '', facebook: '', tiktok: '', website: '' } },
-    theme: { id: '', primary: '' },
+    theme: { id: '', primary: '', style: 'classic' },
     currency: { ar: 'ل.س', en: 'SYP' },
     languages: { default: 'ar', enabled: ['ar', 'en'] },
     tables: { count: 10 },
@@ -132,6 +132,7 @@ export function applyTheme(cfg, { admin = false } = {}) {
   root.style.setProperty('--on-primary', contrastText(primary));
   root.dataset.skin = th.id;
   root.dataset.theme = th.mode;
+  root.dataset.style = cfg?.theme?.style === 'glass' ? 'glass' : 'classic'; // page design: classic | glass
   if (admin) delete root.dataset.layout; else root.dataset.layout = th.layout;
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.content = admin ? primary : (th.mode === 'dark' ? '#0D0D0F' : primary);

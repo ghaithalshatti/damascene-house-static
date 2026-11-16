@@ -41,13 +41,18 @@ function themeCard(th, on) {
     <span class="theme-mini tml-${th.layout}" style="--b:${th.swatch[0]};--p:${th.primary};--t:${th.swatch[2]}"><i class="tm-hero"></i><span class="tm-items">${rows}</span></span>
     <b>${esc(tx(th.name))}</b><small>${esc(t(`layout_${th.layout}`))}</small></button>`;
 }
+function styleCard(id, on) {
+  return `<button type="button" class="style-card ${on ? 'on' : ''}" data-style="${id}" aria-pressed="${on}">
+    <span class="style-mini style-mini--${id}"><i></i><i></i><i></i></span>
+    <b>${esc(t(`style_${id}`))}</b><small>${esc(t(`style_${id}_sub`))}</small></button>`;
+}
 const langMode = (c) => (c.languages.enabled.length > 1 ? 'ar_en' : c.languages.enabled[0] === 'en' ? 'en_only' : 'ar_only');
 
 function render() {
   const c = S.config; const r = c.restaurant; const g = c.github;
   const curTheme = getTheme(themeIdOf(c.theme)).id;
   const primary = c.theme.primary || getTheme(curTheme).primary;
-  c.theme = { id: curTheme, primary };
+  c.theme = { id: curTheme, primary, style: c.theme.style === 'glass' ? 'glass' : 'classic' };
   applyTheme(c, { admin: true });
   document.title = t('setup_title');
   app.innerHTML = `
@@ -69,13 +74,15 @@ function render() {
       <section class="panel"><div class="panel__title"><span class="num-badge">2</span>${esc(t('s_theme'))}</div>
         <div class="theme-wrap">
           <div class="stack">
+            <div class="field"><span>${esc(t('design_style'))}</span><div class="styles" id="styles">${['classic', 'glass'].map((id) => styleCard(id, (c.theme.style || 'classic') === id)).join('')}</div></div>
+            <div class="label">${esc(t('theme_label'))}</div>
             <div class="themes" id="themes">${THEMES.map((th) => themeCard(th, th.id === curTheme)).join('')}</div>
             <div class="field"><span>${esc(t('primary_color'))}</span><div class="swatches" id="swatches">
               ${PRESETS.map((p) => `<button type="button" data-color="${p}" style="background:${p}" class="${p.toLowerCase() === primary.toLowerCase() ? 'on' : ''}" aria-label="${p}"></button>`).join('')}
               <input type="color" name="primary" value="${esc(primary)}" aria-label="${esc(t('primary_color'))}"></div></div>
           </div>
           <div class="phone-col"><div class="label">${esc(t('live_preview'))}</div>
-            <div class="phone"><iframe id="preview" title="preview" src="../?preview=1&t=4&skin=${encodeURIComponent(curTheme)}&primary=${encodeURIComponent(primary)}"></iframe></div></div>
+            <div class="phone"><iframe id="preview" title="preview" src="../?preview=1&t=4&skin=${encodeURIComponent(curTheme)}&primary=${encodeURIComponent(primary)}&style=${c.theme.style === 'glass' ? 'glass' : 'classic'}"></iframe></div></div>
         </div>
       </section>
 
@@ -138,6 +145,12 @@ function bind() {
     f.primary.value = b.dataset.color; previewTheme();
   };
   f.primary.oninput = previewTheme;
+  document.getElementById('styles').onclick = (e) => {
+    const b = e.target.closest('[data-style]'); if (!b) return;
+    S.config.theme.style = b.dataset.style;
+    document.querySelectorAll('.style-card').forEach((x) => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+    previewTheme();
+  };
   document.getElementById('themes').onclick = (e) => {
     const b = e.target.closest('[data-theme]'); if (!b) return;
     const th = getTheme(b.dataset.theme);
@@ -212,7 +225,7 @@ function readForm() {
   const lm = f.langs.value;
   c.languages.enabled = lm === 'ar_en' ? ['ar', 'en'] : lm === 'en_only' ? ['en'] : ['ar'];
   c.languages.default = c.languages.enabled.includes(f.defLang.value) ? f.defLang.value : c.languages.enabled[0];
-  c.theme = { id: getTheme(themeIdOf(c.theme)).id, primary: f.primary.value };
+  c.theme = { id: getTheme(themeIdOf(c.theme)).id, primary: f.primary.value, style: c.theme.style === 'glass' ? 'glass' : 'classic' };
   c.tables.count = Math.max(1, Math.min(300, parseInt(v('tables'), 10) || 1));
 }
 

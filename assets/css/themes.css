@@ -257,3 +257,115 @@ html[data-skin="heritage"] {
   --hero-edge: radial-gradient(circle at 50% 100%, #F5EDE0 11px, transparent 11.5px) bottom center / 28px 14px repeat-x;
 }
 html[data-skin="heritage"] .hero { border-bottom: 0; padding-bottom: 50px; }
+
+/* 9 · Ember Grill (dark, charcoal + glowing embers) -------------------- */
+html[data-skin="ember"] {
+  --bg: #141110; --surface: #1E1A18; --surface-2: #2A2420; --text: #F5E6D8; --muted: #B3A193; --line: #342C26;
+  --radius: 18px; --radius-sm: 12px;
+  --primary-soft: color-mix(in srgb, var(--primary) 18%, var(--surface));
+  --hero-bg:
+    radial-gradient(70% 55% at 50% 115%, color-mix(in srgb, var(--primary) 85%, #FFC078) 0%, transparent 70%),
+    radial-gradient(40% 40% at 15% 100%, color-mix(in srgb, var(--primary) 70%, #C92A2A) 0%, transparent 70%),
+    radial-gradient(40% 40% at 88% 95%, color-mix(in srgb, var(--primary) 60%, #FFD43B) 0%, transparent 70%),
+    linear-gradient(180deg, #0E0B0A 0%, #1B1412 55%, color-mix(in srgb, var(--primary) 30%, #1B1412) 100%);
+  --hero-pattern: repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 22px);
+  --hero-text: #FFF4EA;
+  --glass-bg: rgba(255,244,234,.08); --glass-border: color-mix(in srgb, var(--primary) 40%, transparent); --glass-text: #FFF4EA;
+  --card-border: 1px solid #342C26; --card-shadow: 0 10px 28px rgba(0,0,0,.4); --card-shadow-hover: 0 16px 40px color-mix(in srgb, var(--primary) 25%, rgba(0,0,0,.5));
+  --chip-active-bg: var(--primary); --chip-active-text: var(--on-primary); --price: color-mix(in srgb, var(--primary) 75%, #FFD8A8);
+}
+html[data-skin="ember"] .hero { padding-bottom: 46px; }
+html[data-skin="ember"] .hero__name { letter-spacing: .2px; text-shadow: 0 0 28px color-mix(in srgb, var(--primary) 70%, transparent); }
+html[data-skin="ember"] .logo { background: #1E1A18; border: 2px solid color-mix(in srgb, var(--primary) 60%, transparent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 14%, transparent), 0 10px 26px rgba(0,0,0,.5); }
+html[data-skin="ember"] .bar { margin-top: 0; }
+html[data-skin="ember"] .sec__icon { background: color-mix(in srgb, var(--primary) 20%, #2A2420); }
+html[data-skin="ember"] .card__media > .media { box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent); }
+
+/* 10 · Rosé Patisserie (soft pink, sprinkles) -------------------------- */
+html[data-skin="rose"] {
+  --bg: #FFF3F6; --surface: #FFFFFF; --surface-2: #FCE4EC; --text: #3B1022; --muted: #8C5A6E; --line: #F6D5E0;
+  --font-display: 'Amiri', 'Readex', serif;
+  --radius: 28px; --radius-sm: 20px;
+  --hero-bg:
+    radial-gradient(55% 75% at 92% 0%, color-mix(in srgb, var(--primary) 30%, #FFD6E7) 0%, transparent 65%),
+    radial-gradient(50% 70% at 0% 100%, color-mix(in srgb, var(--primary) 70%, #7A1A43) 0%, transparent 70%),
+    linear-gradient(160deg, color-mix(in srgb, var(--primary) 70%, #FFC2D6) 0%, var(--primary) 55%, color-mix(in srgb, var(--primary) 75%, #4A0B26) 100%);
+  --hero-pattern:
+    radial-gradient(circle, rgba(255,255,255,.55) 1.6px, transparent 2.2px) 0 0 / 46px 46px,
+    radial-gradient(circle, rgba(255,214,102,.55) 1.6px, transparent 2.2px) 23px 23px / 46px 46px;
+  --hero-text: #fff;
+  --hero-edge: radial-gradient(circle at 50% 0%, transparent 13px, #FFF3F6 13.5px) bottom center / 34px 17px repeat-x;
+  --card-border: 0; --card-shadow: 0 8px 24px rgba(214,51,108,.09); --card-shadow-hover: 0 16px 36px rgba(214,51,108,.17);
+  --chip-active-bg: var(--primary); --chip-active-text: var(--on-primary);
+}
+html[data-skin="rose"] .hero { padding-bottom: 52px; }
+html[data-skin="rose"] .hero__brand { flex-direction: column; text-align: center; }
+html[data-skin="rose"] .hero__meta { justify-content: center; }
+html[data-skin="rose"] .logo { border-radius: 50%; border: 4px solid #fff; }
+html[data-skin="rose"] .bar { margin-top: 0; }
+html[data-skin="rose"] .cat { border: 0; box-shadow: 0 2px 10px rgba(214,51,108,.08); }
+html[data-skin="rose"] .sec__title { justify-content: center; font-size: 26px; }
+html[data-skin="rose"] .sec__count { display: none; }
+html[data-skin="rose"] .card__name { font-size: 17px; }
+
+/* 11 · Mediterranean Olive (printed menu, olive + gold) ----------------- */
+html[data-skin="olive"] {
+  --bg: #F4F2E8; --surface: #FBFAF4; --surface-2: #EAE7D6; --text: #23280F; --muted: #6B6F55; --line: #DEDAC4;
+  --gold: #C9A227;
+  --font-display: 'Amiri', 'Readex', serif;
+  --radius: 16px; --radius-sm: 12px;
+  --hero-bg:
+    radial-gradient(55% 75% at 100% 0%, color-mix(in srgb, var(--gold) 55%, transparent) 0%, transparent 62%),
+    radial-gradient(50% 70% at 0% 100%, color-mix(in srgb, var(--primary) 55%, #10160A) 0%, transparent 70%),
+    linear-gradient(165deg, color-mix(in srgb, var(--primary) 80%, #A3B86C) 0%, var(--primary) 50%, color-mix(in srgb, var(--primary) 70%, #0E1406) 100%);
+  --hero-pattern:
+    radial-gradient(60% 100% at 50% 0%, rgba(255,255,255,.1) 49%, transparent 51%) 0 0 / 28px 44px,
+    radial-gradient(60% 100% at 50% 100%, rgba(255,255,255,.07) 49%, transparent 51%) 14px 22px / 28px 44px;
+  --hero-text: #FBF7E6;
+  --glass-bg: rgba(251,247,230,.13); --glass-border: rgba(201,162,39,.45); --glass-text: #FBF7E6;
+  --card-border: 1px solid var(--line); --card-shadow: none; --card-shadow-hover: none;
+  --chip-active-bg: var(--primary); --chip-active-text: #FBF7E6; --price: var(--primary);
+}
+html[data-skin="olive"] .hero { border-bottom: 3px solid var(--gold); }
+html[data-skin="olive"] .logo { border-radius: 50%; border: 3px solid var(--gold); }
+html[data-skin="olive"] .hero__name { font-size: clamp(30px, 8.6vw, 52px); }
+html[data-skin="olive"] .bar { margin-top: 0; }
+html[data-skin="olive"] .sec__icon { display: none; }
+html[data-skin="olive"] .sec__title { font-size: 26px; color: var(--primary); border-bottom: 1px solid var(--gold); padding-bottom: 8px; }
+html[data-skin="olive"] .sec__title::before { content: '❦'; color: var(--gold); font-size: 18px; }
+html[data-skin="olive"] .card__name { font-size: 19px; }
+html[data-skin="olive"] .item__name { font-size: 27px; }
+html[data-skin="olive"] .card__add { background: transparent; color: var(--primary); border: 1.5px solid var(--primary) !important; }
+
+/* 12 · Royal Velvet (purple + gold, elegant) ---------------------------- */
+html[data-skin="royal"] {
+  --bg: #F5F2FB; --surface: #FFFFFF; --surface-2: #ECE6F8; --text: #1E1433; --muted: #6E6488; --line: #E2DAF2;
+  --gold: #C8A24A;
+  --font-display: 'Amiri', 'Readex', serif;
+  --radius: 20px; --radius-sm: 14px;
+  --hero-bg:
+    radial-gradient(50% 60% at 50% -10%, color-mix(in srgb, var(--gold) 50%, transparent) 0%, transparent 65%),
+    radial-gradient(45% 65% at 100% 100%, color-mix(in srgb, var(--primary) 60%, #E64980) 0%, transparent 70%),
+    radial-gradient(45% 65% at 0% 100%, color-mix(in srgb, var(--primary) 55%, #0B0620) 0%, transparent 70%),
+    linear-gradient(170deg, color-mix(in srgb, var(--primary) 80%, #8C6FE0) 0%, var(--primary) 50%, color-mix(in srgb, var(--primary) 65%, #0B0620) 100%);
+  --hero-pattern: repeating-linear-gradient(45deg, rgba(200,162,74,.12) 0 1px, transparent 1px 16px), repeating-linear-gradient(-45deg, rgba(200,162,74,.12) 0 1px, transparent 1px 16px);
+  --hero-text: #FFF9EC;
+  --glass-bg: rgba(255,249,236,.12); --glass-border: rgba(200,162,74,.5); --glass-text: #FFF9EC;
+  --card-border: 1px solid color-mix(in srgb, var(--gold) 25%, var(--line)); --card-shadow: 0 8px 24px rgba(30,20,51,.07); --card-shadow-hover: 0 16px 36px rgba(91,63,168,.16);
+  --chip-active-bg: var(--primary); --chip-active-text: #FFF9EC; --price: var(--primary);
+}
+html[data-skin="royal"] .hero { padding-bottom: 48px; }
+html[data-skin="royal"] .hero__brand { flex-direction: column; text-align: center; }
+html[data-skin="royal"] .hero__meta { justify-content: center; }
+html[data-skin="royal"] .logo { border-radius: 50%; border: 3px solid var(--gold); box-shadow: 0 0 0 6px rgba(200,162,74,.18), 0 12px 28px rgba(0,0,0,.25); }
+html[data-skin="royal"] .hero__name { font-size: clamp(30px, 8.6vw, 54px); }
+html[data-skin="royal"] .bar { margin-top: 0; }
+html[data-skin="royal"] .sec__title { justify-content: center; }
+html[data-skin="royal"] .sec__icon, html[data-skin="royal"] .sec__count { display: none; }
+html[data-skin="royal"] .sec__title::before, html[data-skin="royal"] .sec__title::after { content: '✦'; color: var(--gold); font-size: 14px; }
+html[data-skin="royal"] .card__price { color: var(--primary); }
+
+@media (min-width: 1024px) {
+  html[data-skin="ember"] .bar, html[data-skin="rose"] .bar, html[data-skin="olive"] .bar, html[data-skin="royal"] .bar { margin-top: 28px; border-radius: var(--radius); }
+  html[data-skin="olive"] .hero__name, html[data-skin="royal"] .hero__name, html[data-skin="rose"] .hero__name { font-size: 58px; }
+}

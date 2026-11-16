@@ -23,7 +23,7 @@ async function boot() {
       <button class="btn btn--primary" onclick="location.reload()">${esc(t('retry'))}</button></div>`;
     return;
   }
-  if (PREVIEW && params.get('skin')) S.config.theme = { id: params.get('skin'), primary: params.get('primary') || '' };
+  if (PREVIEW && params.get('skin')) S.config.theme = { id: params.get('skin'), primary: params.get('primary') || '', style: params.get('style') || 'classic' };
   applyTheme(S.config);
   S.langs = initLang(S.config);
   [itemSheet, infoSheet] = ['itemSheet', 'infoSheet'].map((id) => {
