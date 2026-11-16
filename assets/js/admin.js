@@ -150,7 +150,7 @@ function renderLogin(err = '') {
       else sessionStorage.setItem(tokenKey(), JSON.stringify(token));
       enterDashboard();
     } catch (ex) {
-      errEl.textContent = ex.message;
+      errEl.textContent = ex.status === 401 ? t('token_expired') : ex.status === 403 ? t('token_no_write') : ex.message;
       btn.disabled = false; btn.innerHTML = `${ICONS.lock}<span>${esc(t('login'))}</span>`;
     }
   };
