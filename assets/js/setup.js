@@ -261,7 +261,7 @@ async function testConnection() {
     const st2 = document.getElementById('ghStatus'); st2.className = 'status ok'; st2.innerHTML = `${ICONS.check}${esc(t('connected'))}`;
     return gh;
   } catch (e) {
-    st.className = 'status err'; st.textContent = e.status === 401 ? t('token_bad') : e.status === 404 ? t('token_no_repo') : e.message;
+    st.className = 'status err'; st.textContent = e.status === 401 ? t('token_bad') : e.status === 404 ? t('token_no_repo') : e.status === 403 ? t('token_no_write') : e.message;
     return null;
   } finally { btn.disabled = false; }
 }
@@ -319,7 +319,7 @@ async function publish() {
     toast(t('published'), 'ok', 4500);
     showLinks(defaultBase());
   } catch (e) {
-    toast(e.message, 'err', 6000);
+    toast(e.status === 403 ? t('token_no_write') : e.status === 401 ? t('token_bad') : e.message, 'err', 8000);
   } finally { btn.disabled = false; btn.innerHTML = label; }
 }
 async function localPhoto(st, old) { if (st.photo) return blobToDataURL(st.photo.blob); if (st.removed) return ''; return old; }

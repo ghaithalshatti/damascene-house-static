@@ -31,6 +31,8 @@ export class GitHub {
   async verify() {
     const info = await this.req('');
     if (info.permissions && !info.permissions.push) { const e = new Error('Token has no write access'); e.status = 403; throw e; }
+    // The repo answer shows the USER's rights; a tiny blob write proves the TOKEN itself can write (Contents: Read and write).
+    await this.req('git/blobs', { method: 'POST', body: { content: '', encoding: 'utf-8' } });
     if (!this.branch) this.branch = info.default_branch;
     return info;
   }
