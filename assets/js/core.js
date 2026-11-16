@@ -124,6 +124,8 @@ export function imgSrc(p) {
 
 /* ---------- theme ---------- */
 // Dashboards (admin=true) share the theme's palette but not the menu's card layout.
+// Page designs, chosen in /setup next to the theme (config.theme.style).
+export const STYLES = ['classic', 'glass', 'app', 'magazine'];
 export function applyTheme(cfg, { admin = false } = {}) {
   const root = document.documentElement;
   const th = getTheme(themeIdOf(cfg?.theme));
@@ -132,7 +134,7 @@ export function applyTheme(cfg, { admin = false } = {}) {
   root.style.setProperty('--on-primary', contrastText(primary));
   root.dataset.skin = th.id;
   root.dataset.theme = th.mode;
-  root.dataset.style = cfg?.theme?.style === 'glass' ? 'glass' : 'classic'; // page design: classic | glass
+  root.dataset.style = STYLES.includes(cfg?.theme?.style) ? cfg.theme.style : 'classic'; // page design
   if (admin) delete root.dataset.layout; else root.dataset.layout = th.layout;
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.content = admin ? primary : (th.mode === 'dark' ? '#0D0D0F' : primary);

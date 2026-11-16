@@ -268,3 +268,17 @@ html[data-skin="ocean"] .adm-top::before, html[data-skin="midnight"] .adm-top::b
   radial-gradient(50% 60% at 90% 10%, color-mix(in srgb, color-mix(in srgb, var(--primary) 50%, #7DD3FC) 45%, transparent), transparent 70%), var(--bg); }
 .style-mini--glass i { background: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.7); backdrop-filter: blur(4px); border-radius: 8px; }
 .style-mini--glass i:first-child { background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 70%, #fff), var(--primary)); border: 0; }
+.styles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 560px) { .styles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.style-mini i:nth-child(4) { display: none; }
+.style-mini--app { background: color-mix(in srgb, var(--bg) 70%, var(--surface-2)); border: 1px solid var(--line); padding: 8px; gap: 5px; }
+.style-mini--app i { background: var(--surface); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
+.style-mini--app i:first-child { height: 22px; background: var(--primary); border-radius: 10px; }
+.style-mini--app i:nth-child(4) { display: block; position: absolute; inset: auto 0 0 0; height: 14px; border-radius: 8px 8px 0 0; background: var(--surface); box-shadow: 0 -2px 6px rgba(0,0,0,.12);
+  background-image: radial-gradient(circle, var(--primary) 3px, transparent 3.5px), radial-gradient(circle, var(--line) 3px, transparent 3.5px), radial-gradient(circle, var(--line) 3px, transparent 3.5px);
+  background-size: 33.3% 100%; background-position: 0 0, 50% 0, 100% 0; background-repeat: no-repeat; }
+.style-mini--magazine { background: var(--bg); border: 1px solid var(--line); padding: 8px 12px; gap: 6px; justify-items: center; }
+.style-mini--magazine i { height: 2px !important; width: 100%; background: color-mix(in srgb, var(--text) 25%, transparent); border-radius: 0; }
+.style-mini--magazine i:first-child { height: 16px !important; width: 70%; background: var(--text); border-radius: 0; clip-path: polygon(0 30%, 100% 30%, 100% 70%, 0 70%); margin-top: 4px; }
+.style-mini--magazine i:nth-child(2) { width: 24px; background: var(--primary); }
+.style-mini--magazine i:nth-child(4) { display: block; }

@@ -1,0 +1,138 @@
+/* =====================================================================
+   Design style: "app" — feels like a delivery app (config.theme.style = "app")
+   Compact banner, category tiles in a bottom tab bar, soft floating cards.
+   Works with any theme; applied with html[data-style="app"].
+   ===================================================================== */
+html[data-style="app"] {
+  --radius: 22px; --radius-sm: 16px;
+  --a-shadow: 0 6px 20px -6px rgba(20, 16, 12, .16), 0 1px 3px rgba(20, 16, 12, .06);
+  --a-shadow-lg: 0 14px 34px -10px rgba(20, 16, 12, .25);
+  --a-grad: linear-gradient(135deg, color-mix(in srgb, var(--primary) 80%, #fff), var(--primary) 60%, color-mix(in srgb, var(--primary) 85%, #000));
+  --card-border: 0; --card-shadow: var(--a-shadow); --card-shadow-hover: var(--a-shadow-lg);
+  --nav-h: 76px;
+}
+html[data-style="app"][data-theme="dark"] { --a-shadow: 0 8px 22px -8px rgba(0, 0, 0, .7); --a-shadow-lg: 0 16px 36px -10px rgba(0, 0, 0, .8); }
+html[data-style="app"] body { background: color-mix(in srgb, var(--bg) 70%, var(--surface-2)); }
+html[data-style="app"] .btn--primary, html[data-style="app"] .fab { background: var(--a-grad); border-radius: 18px; }
+html[data-style="app"] .input, html[data-style="app"] .select, html[data-style="app"] .textarea { border-radius: 16px; background: var(--surface); }
+html[data-style="app"] .sheet__panel { border-radius: 28px 28px 0 0; }
+html[data-style="app"] .sheet__grip { width: 54px; height: 6px; background: color-mix(in srgb, var(--text) 18%, transparent); }
+
+/* ---------- Customer menu ---------- */
+/* Banner card instead of a full hero */
+html[data-style="app"] .hero { margin: 12px 12px 0; border-radius: 26px; min-height: 196px; padding-bottom: 16px; box-shadow: var(--a-shadow-lg); }
+html[data-style="app"] .hero__bg::before { display: none; }
+html[data-style="app"] .hero__brand { padding-top: 18px; gap: 12px; flex-direction: row !important; text-align: start !important; }
+html[data-style="app"] .hero__meta { justify-content: flex-start !important; }
+html[data-style="app"] .hero__name { font-size: clamp(22px, 6vw, 30px) !important; }
+html[data-style="app"] .logo { width: 58px; height: 58px; border-radius: 18px; }
+html[data-style="app"] .hero__name, html[data-style="app"] .hero__tag { text-shadow: 0 2px 10px rgba(0, 0, 0, .25); }
+
+/* Search as a floating pill; the bar itself is plain */
+html[data-style="app"] .bar { margin: 4px 0 0 !important; background: transparent; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+/* no backdrop-filter on the bar: it would trap the fixed bottom tab bar inside it */
+html[data-style="app"] .bar.stuck { background: var(--bg); box-shadow: 0 6px 16px -10px rgba(0, 0, 0, .3); border: 0; }
+html[data-style="app"] .search { padding-top: 12px; padding-bottom: 6px; }
+html[data-style="app"] .search__box { height: 50px; border-radius: 99px; border: 0; background: var(--surface); box-shadow: var(--a-shadow); padding-inline: 18px; }
+
+/* Categories = bottom tab bar with icon tiles (mobile & tablet) */
+html[data-style="app"] .cats {
+  position: fixed; z-index: 45; inset-inline: 0; bottom: 0; margin: 0;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); gap: 4px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--line); box-shadow: 0 -8px 24px -12px rgba(0, 0, 0, .25); border-radius: 24px 24px 0 0;
+}
+html[data-style="app"] .cat { flex-direction: column; gap: 3px; height: auto; min-width: 74px; padding: 4px 6px; border: 0; background: transparent; border-radius: 16px;
+  font-size: 11.5px; font-weight: 600; color: var(--muted); box-shadow: none; }
+html[data-style="app"] .cat__icon { width: 44px; height: 36px; display: grid; place-items: center; font-size: 22px; border-radius: 14px; transition: background .2s, transform .2s; }
+html[data-style="app"] .cat.active { background: transparent; color: var(--primary); border-color: transparent; box-shadow: none; }
+html[data-style="app"] .cat.active .cat__icon { background: var(--a-grad); transform: translateY(-2px); box-shadow: 0 8px 16px -6px color-mix(in srgb, var(--primary) 70%, transparent); }
+html[data-style="app"] main { padding-bottom: calc(var(--nav-h) + 40px); }
+html[data-style="app"] .foot { padding-bottom: calc(var(--nav-h) + 40px + env(safe-area-inset-bottom)); }
+html[data-style="app"] .cartbar { bottom: calc(var(--nav-h) + 12px + env(safe-area-inset-bottom)); border-radius: 20px; }
+html[data-style="app"] .cartbar:not(.show) { transform: translateY(calc(100% + var(--nav-h) + 40px)); }
+/* the bar is the stacking context of the fixed tab bar: lift it above the cart bar (sheets stay above, z 60) */
+html[data-style="app"] .bar { z-index: 46; }
+html[data-style="app"] .dock { bottom: calc(var(--nav-h) + 12px + env(safe-area-inset-bottom)); }
+html[data-style="app"] .dock--up { bottom: calc(var(--nav-h) + 84px + env(safe-area-inset-bottom)); }
+html[data-style="app"] body:has(.dock) .foot { padding-bottom: calc(var(--nav-h) + 180px + env(safe-area-inset-bottom)); }
+
+/* Section headers */
+html[data-style="app"] .sec__title { font-size: 21px; font-weight: 700; }
+html[data-style="app"] .sec__icon { width: 40px; height: 40px; border-radius: 14px; background: var(--surface); box-shadow: var(--a-shadow); }
+html[data-style="app"] .sec__count { background: var(--surface); padding: 3px 12px; border-radius: 99px; box-shadow: var(--a-shadow); color: var(--text); font-weight: 600; }
+
+/* Cards: soft floating tiles */
+html[data-style="app"] .card { background: var(--surface); border: 0; border-radius: 22px; box-shadow: var(--a-shadow); }
+html[data-style="app"] .card__media { width: 104px; height: 104px; }
+html[data-style="app"] .card__media > .media { border-radius: 18px; }
+html[data-style="app"] .card__name { font-size: 16px; }
+html[data-style="app"] .card__price { font-size: 17px; }
+html[data-style="app"] .card__add { width: 38px; height: 38px; border-radius: 50%; border: 3px solid var(--surface) !important; background: var(--a-grad); color: var(--on-primary); box-shadow: 0 6px 14px -4px color-mix(in srgb, var(--primary) 70%, transparent); }
+html[data-style="app"][data-layout="tile"] .card { padding: 8px; }
+html[data-style="app"][data-layout="tile"] .card__media { width: 100%; height: auto; }
+html[data-style="app"][data-layout="tile"] .card__media > .media { border-radius: 16px; }
+html[data-style="app"][data-layout="tile"] .card__body { padding: 8px 4px 4px; }
+html[data-style="app"][data-layout="list"] .items { background: var(--surface); border-radius: 24px; padding: 4px 18px; box-shadow: var(--a-shadow); }
+html[data-style="app"][data-layout="list"] .card { background: transparent; box-shadow: none; border-radius: 0; border-bottom: 1px solid var(--line); }
+html[data-style="app"][data-layout="list"] .card:last-child { border-bottom: 0; }
+html[data-style="app"][data-layout="list"] .card__media { width: auto; height: auto; }
+html[data-style="app"][data-layout="list"] .card__add { position: static; }
+
+/* Item sheet like an app product page */
+html[data-style="app"] .item-media { margin: 0; }
+html[data-style="app"] .item__price { font-size: 22px; }
+html[data-style="app"] .size { border: 0; background: var(--surface-2); border-radius: 16px; }
+html[data-style="app"] .size:has(input:checked) { background: var(--primary-soft); box-shadow: inset 0 0 0 2px var(--primary); }
+html[data-style="app"] .info-row__icon { border-radius: 14px; }
+
+/* Desktop: keep the sidebar (no bottom bar) */
+@media (min-width: 1024px) {
+  html[data-style="app"] .hero { margin: 16px 16px 0; min-height: 260px; padding: 22px 0 26px; }
+  html[data-style="app"] .bar { margin-top: 24px !important; top: 20px; background: var(--surface); border-radius: 24px; box-shadow: var(--a-shadow); }
+  html[data-style="app"] .cats { position: static; flex-direction: column; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border: 0; box-shadow: none; border-radius: 0; padding: 6px 10px 12px; }
+  html[data-style="app"] .cat { flex-direction: row; width: 100%; height: 50px; font-size: 15px; justify-content: flex-start; gap: 10px; }
+  html[data-style="app"] .cat__icon { width: 38px; height: 34px; font-size: 19px; }
+  html[data-style="app"] .cat.active { background: var(--primary-soft); }
+  html[data-style="app"] main, html[data-style="app"] .foot { padding-bottom: 80px; }
+  html[data-style="app"] main { padding-top: 24px; }
+  html[data-style="app"] .cartbar, html[data-style="app"] .dock { bottom: 24px; }
+}
+
+/* ---------- Owner dashboard, setup & staff: tabs become a bottom tab bar ---------- */
+html[data-style="app"] .adm-top { margin: 10px 10px 0; top: 10px; border-radius: 24px; overflow: visible; }
+html[data-style="app"] .adm-top::before { border-radius: 24px; }
+html[data-style="app"] .tabs {
+  position: fixed; z-index: 45; inset-inline: 0; bottom: 0; justify-content: space-around; margin: 0;
+  padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); gap: 2px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--line); box-shadow: 0 -8px 24px -12px rgba(0, 0, 0, .25); border-radius: 22px 22px 0 0;
+}
+html[data-style="app"] .tab { flex: 1 1 0; min-width: 62px; flex-direction: column; gap: 3px; height: auto; padding: 6px 4px; font-size: 11px; color: var(--muted); opacity: 1; background: transparent; border-radius: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html[data-style="app"] .tab .ic { width: 22px; height: 22px; }
+html[data-style="app"] .tab:hover { background: transparent; }
+html[data-style="app"] .tab.active { color: var(--primary); background: var(--primary-soft); box-shadow: none; }
+html[data-style="app"] .tab__n { position: absolute; margin-top: -6px; margin-inline-start: 18px; }
+html[data-style="app"] .tab { position: relative; }
+html[data-style="app"] .adm-main { padding-bottom: calc(var(--nav-h) + 90px); }
+html[data-style="app"] .fab { bottom: calc(var(--nav-h) + 14px + env(safe-area-inset-bottom)); border-radius: 20px; }
+html[data-style="app"] .saving { bottom: calc(var(--nav-h) + 14px + env(safe-area-inset-bottom)); }
+html[data-style="app"] .saving:not(.show) { opacity: 0; visibility: hidden; }
+html[data-style="app"] .stat, html[data-style="app"] .panel, html[data-style="app"] .row, html[data-style="app"] .tk,
+html[data-style="app"] .theme-card, html[data-style="app"] .style-card { border: 0; box-shadow: var(--a-shadow); background: var(--surface); }
+html[data-style="app"] .panel { border-radius: 24px; }
+html[data-style="app"] .row { border-radius: 20px; border-inline-start: 0; }
+html[data-style="app"] .row__thumb { border-radius: 16px; }
+html[data-style="app"] .filter button { border: 0; background: var(--surface); box-shadow: var(--a-shadow); }
+html[data-style="app"] .filter button.active { background: var(--a-grad); }
+html[data-style="app"] .login__card { border: 0; border-radius: 30px; }
+html[data-style="app"] .theme-card.on, html[data-style="app"] .style-card.on { box-shadow: 0 0 0 2.5px var(--primary), var(--a-shadow); }
+@media (min-width: 1024px) {
+  html[data-style="app"] .tabs { position: static; justify-content: flex-start; width: max-content; max-width: 100%; margin-bottom: 12px; padding: 5px; border-radius: 18px; background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .2); box-shadow: none; }
+  html[data-style="app"] .tab { flex: none; flex-direction: row; gap: 8px; height: 42px; padding: 0 16px; font-size: 14.5px; color: var(--hero-text); opacity: .85; }
+  html[data-style="app"] .tab.active { background: var(--surface); color: var(--primary); opacity: 1; }
+  html[data-style="app"] .tab__n { position: static; margin: 0; }
+  html[data-style="app"] .adm-main { padding-bottom: 100px; }
+  html[data-style="app"] .fab, html[data-style="app"] .saving { bottom: 24px; }
+}
+@media print { html[data-style="app"] .tabs, html[data-style="app"] .cats { display: none; } }

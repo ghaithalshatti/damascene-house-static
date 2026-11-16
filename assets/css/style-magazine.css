@@ -1,0 +1,142 @@
+/* =====================================================================
+   Design style: "magazine" — editorial luxury (config.theme.style = "magazine")
+   Large serif headlines, hairline rules, generous whitespace, sharp photos.
+   Works with any theme; applied with html[data-style="magazine"].
+   ===================================================================== */
+html[data-style="magazine"] {
+  --font-display: 'Amiri', 'Readex', serif;
+  --radius: 4px; --radius-sm: 2px;
+  --m-rule: color-mix(in srgb, var(--text) 16%, transparent);
+  --m-rule-strong: color-mix(in srgb, var(--text) 70%, transparent);
+  --card-border: 0; --card-shadow: none; --card-shadow-hover: none;
+}
+html[data-style="magazine"] body { background: var(--bg); letter-spacing: .1px; }
+html[data-style="magazine"] .btn { border-radius: 2px; letter-spacing: .4px; }
+html[data-style="magazine"] .btn--primary { box-shadow: none; }
+html[data-style="magazine"] .btn--ghost, html[data-style="magazine"] .btn--outline { background: transparent; border: 1px solid var(--m-rule-strong); }
+html[data-style="magazine"] .icon-btn { border-radius: 50%; box-shadow: none; border: 1px solid var(--m-rule); }
+html[data-style="magazine"] .input, html[data-style="magazine"] .select, html[data-style="magazine"] .textarea { border-radius: 2px; border-width: 0 0 1.5px; background: transparent; padding-inline: 2px; }
+html[data-style="magazine"] .input:focus, html[data-style="magazine"] .textarea:focus, html[data-style="magazine"] .select:focus { box-shadow: none; }
+html[data-style="magazine"] .chip { border-radius: 2px; background: transparent; border: 1px solid currentColor; }
+html[data-style="magazine"] .sheet__panel { border-radius: 0; }
+html[data-style="magazine"] .sheet--center .sheet__panel { border-radius: 2px; }
+html[data-style="magazine"] .toast { border-radius: 2px; }
+
+/* ---------- Customer menu ---------- */
+/* Cover-story hero: tall, centred, framed by rules */
+html[data-style="magazine"] .hero { min-height: 68vh; max-height: 640px; padding-bottom: 40px; justify-content: flex-end; border-radius: 0 !important; border-bottom: 0 !important; }
+html[data-style="magazine"] .hero__bg::before { display: none; }
+html[data-style="magazine"] .hero__brand { flex-direction: column !important; text-align: center !important; gap: 14px; padding-bottom: 6px; }
+html[data-style="magazine"] .hero__brand > div { display: grid; justify-items: center; }
+html[data-style="magazine"] .hero__brand > div::before { content: ''; width: 64px; height: 1px; background: currentColor; opacity: .7; margin-bottom: 18px; }
+html[data-style="magazine"] .hero__name { font-family: 'Amiri', 'Readex', serif; font-size: clamp(40px, 13vw, 76px) !important; line-height: 1.05; letter-spacing: .5px; font-weight: 700; }
+html[data-style="magazine"] .hero__tag { font-size: 15px; letter-spacing: 2.5px; opacity: .85; margin-top: 12px; }
+html[data-style="magazine"] .hero__meta { justify-content: center !important; margin-top: 18px; }
+html[data-style="magazine"] .hero__meta .glass-btn { border-radius: 0; background: transparent; border: 1px solid currentColor; backdrop-filter: none; }
+html[data-style="magazine"] .logo { width: 70px; height: 70px; border-radius: 50%; box-shadow: none; border: 1px solid rgba(255, 255, 255, .6); }
+html[data-style="magazine"] .glass-btn { border-radius: 0; }
+
+/* Table of contents bar: text links with an underline */
+html[data-style="magazine"] .bar { margin-top: 0 !important; border-radius: 0 !important; background: color-mix(in srgb, var(--bg) 94%, transparent); border-bottom: 1px solid var(--m-rule); box-shadow: none; }
+html[data-style="magazine"] .bar.stuck { box-shadow: none; }
+html[data-style="magazine"] .search__box { border-radius: 0; border-width: 0 0 1px; background: transparent; padding-inline: 2px; }
+html[data-style="magazine"] .search__box:focus-within { box-shadow: none; }
+html[data-style="magazine"] .cats { gap: 22px; padding-top: 12px; padding-bottom: 0; }
+html[data-style="magazine"] .cat { height: 40px; padding: 0 2px; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: var(--muted);
+  font-family: 'Amiri', 'Readex', serif; font-size: 17px; font-weight: 700; border-bottom: 2px solid transparent; }
+html[data-style="magazine"] .cat__icon { display: none; }
+html[data-style="magazine"] .cat.active { background: transparent; color: var(--text); border-color: transparent; border-bottom-color: var(--primary); box-shadow: none; }
+
+/* Chapter headings */
+html[data-style="magazine"] main { padding-top: 10px; }
+html[data-style="magazine"] .sec { padding-top: 40px; }
+html[data-style="magazine"] .sec__title { flex-direction: column; justify-content: center; text-align: center; gap: 6px; margin: 0 0 26px; padding: 0;
+  font-family: 'Amiri', 'Readex', serif; font-size: 34px; line-height: 1.1; background: none; border: 0; box-shadow: none; color: var(--text); }
+html[data-style="magazine"] .sec__title::before, html[data-style="magazine"] .sec__title::after { display: none !important; }
+html[data-style="magazine"] .sec__icon { display: none !important; }
+html[data-style="magazine"] .sec__count { display: block !important; order: -1; margin: 0; background: none; padding: 0; color: var(--primary);
+  font-family: var(--font); font-size: 11.5px; letter-spacing: 3px; font-weight: 600; }
+html[data-style="magazine"] .sec__title { border-bottom: 1px solid var(--m-rule); padding-bottom: 18px; }
+
+/* Articles: no boxes, sharp photography, hairlines */
+html[data-style="magazine"] .items { gap: 0 !important; }
+html[data-style="magazine"] .card { background: transparent; border: 0; border-radius: 0; box-shadow: none; padding: 20px 0; border-bottom: 1px solid var(--m-rule); gap: 18px; }
+@media (hover: hover) { html[data-style="magazine"] .card:hover { transform: none; box-shadow: none; } html[data-style="magazine"] .card:hover .card__name { color: var(--primary); } }
+html[data-style="magazine"] .card__media { width: 118px; height: 148px; }
+html[data-style="magazine"] .card__media > .media { border-radius: 0; }
+html[data-style="magazine"] .card__name { font-family: 'Amiri', 'Readex', serif; font-size: 21px; line-height: 1.25; transition: color .2s; }
+html[data-style="magazine"] .card__desc { font-size: 13.5px; line-height: 1.75; -webkit-line-clamp: 3; }
+html[data-style="magazine"] .card__price { font-family: 'Amiri', 'Readex', serif; font-size: 20px; color: var(--text); padding-top: 8px; }
+html[data-style="magazine"] .card__price small { font-family: var(--font); letter-spacing: 1px; }
+html[data-style="magazine"] .card__add { border-radius: 0; width: 36px; height: 36px; background: var(--text); color: var(--bg); border: 0 !important; box-shadow: none; bottom: -6px; inset-inline-end: -6px; }
+html[data-style="magazine"] .ph { background: var(--surface-2); }
+/* tiles: two-column editorial spread with portrait photos */
+html[data-style="magazine"][data-layout="tile"] .items { column-gap: 18px !important; }
+html[data-style="magazine"][data-layout="tile"] .card { padding: 0 0 22px; border-bottom: 0; }
+html[data-style="magazine"][data-layout="tile"] .card__media { width: 100%; height: auto; aspect-ratio: 3 / 4; }
+html[data-style="magazine"][data-layout="tile"] .card__body { padding: 12px 0 0; }
+html[data-style="magazine"][data-layout="tile"] .card__name { font-size: 18px; }
+html[data-style="magazine"][data-layout="tile"] .card__add { bottom: 12px; inset-inline-end: 12px; }
+/* list: wine-list typography */
+html[data-style="magazine"][data-layout="list"] .card { padding: 18px 0; }
+html[data-style="magazine"][data-layout="list"] .card__media { width: auto; height: auto; }
+html[data-style="magazine"][data-layout="list"] .card__add { position: static; }
+
+/* Item sheet: a feature page */
+html[data-style="magazine"] .item-media { margin: 0; }
+html[data-style="magazine"] .item__name { font-family: 'Amiri', 'Readex', serif; font-size: 32px !important; line-height: 1.15; }
+html[data-style="magazine"] .item__price { font-family: 'Amiri', 'Readex', serif; font-size: 24px; color: var(--text); }
+html[data-style="magazine"] .item__desc { font-size: 15.5px; line-height: 1.9; }
+html[data-style="magazine"] .block__title { font-size: 11.5px; letter-spacing: 3px; color: var(--primary); }
+html[data-style="magazine"] .size { border-radius: 0; border-width: 0 0 1px; border-color: var(--m-rule); background: transparent; padding-inline: 0; }
+html[data-style="magazine"] .size:has(input:checked) { background: transparent; border-color: var(--primary); }
+html[data-style="magazine"] .size b { font-family: 'Amiri', 'Readex', serif; font-size: 18px; color: var(--text); }
+html[data-style="magazine"] .info-row__icon { border-radius: 50%; }
+html[data-style="magazine"] .socials a { border-radius: 50%; box-shadow: none; background: transparent; border: 1px solid var(--m-rule-strong); }
+html[data-style="magazine"] .cartbar { border-radius: 0; }
+html[data-style="magazine"] .dock__btn { border-radius: 0; box-shadow: none; }
+html[data-style="magazine"] .ticket__card, html[data-style="magazine"] .done-pop__card { border-radius: 2px; }
+
+@media (min-width: 700px) {
+  html[data-style="magazine"][data-layout="row"] .items, html[data-style="magazine"][data-layout="list"] .items { column-gap: 48px !important; }
+  html[data-style="magazine"] .sec__title { font-size: 42px; }
+}
+@media (min-width: 1024px) {
+  html[data-style="magazine"] .hero { min-height: 560px; padding: 40px 0 60px; }
+  html[data-style="magazine"] .hero__name { font-size: 96px !important; }
+  html[data-style="magazine"] .bar { margin-top: 40px !important; top: 24px; background: transparent; border: 0; border-inline-end: 1px solid var(--m-rule); }
+  html[data-style="magazine"] .cats { gap: 2px; }
+  html[data-style="magazine"] .cat { width: 100%; height: 48px; justify-content: flex-start; border-bottom: 1px solid var(--m-rule); font-size: 19px; }
+  html[data-style="magazine"] .cat.active { border-bottom-color: var(--primary); background: transparent; color: var(--primary); }
+  html[data-style="magazine"] .cat__n { font-family: var(--font); }
+  html[data-style="magazine"] .sec:first-child { padding-top: 40px; }
+  html[data-style="magazine"] .card__media { width: 150px; height: 190px; }
+}
+
+/* ---------- Owner dashboard, setup & staff ---------- */
+html[data-style="magazine"] .adm-top { border-radius: 0; box-shadow: none; }
+html[data-style="magazine"] .adm-brand b { font-family: 'Amiri', 'Readex', serif; font-size: 22px; }
+html[data-style="magazine"] .tab { border-radius: 0; border-bottom: 2px solid transparent; font-family: 'Amiri', 'Readex', serif; font-size: 16.5px; }
+html[data-style="magazine"] .tab.active { background: transparent; color: var(--hero-text); box-shadow: none; border-bottom-color: currentColor; }
+html[data-style="magazine"] .stat, html[data-style="magazine"] .panel, html[data-style="magazine"] .row, html[data-style="magazine"] .tk,
+html[data-style="magazine"] .theme-card, html[data-style="magazine"] .style-card, html[data-style="magazine"] .login__card {
+  border-radius: 2px; box-shadow: none; border: 1px solid var(--m-rule); background: var(--surface); }
+html[data-style="magazine"] .stat::after { display: none; }
+html[data-style="magazine"] .stat__ic { border-radius: 50%; box-shadow: none; }
+html[data-style="magazine"] .stat b { font-family: 'Amiri', 'Readex', serif; font-size: 28px; }
+html[data-style="magazine"] .panel::before { height: 1px; background: var(--m-rule-strong); }
+html[data-style="magazine"] .panel__title { font-family: 'Amiri', 'Readex', serif; font-size: 22px; }
+html[data-style="magazine"] .panel__title > .ic, html[data-style="magazine"] .panel__title .num-badge { border-radius: 50%; box-shadow: none; }
+html[data-style="magazine"] .row { border-inline-start: 3px solid var(--primary); }
+html[data-style="magazine"] .row.off { border-inline-start-color: var(--m-rule); }
+html[data-style="magazine"] .row__name { font-family: 'Amiri', 'Readex', serif; font-size: 17px; }
+html[data-style="magazine"] .row__thumb, html[data-style="magazine"] .photo { border-radius: 2px; }
+html[data-style="magazine"] .row .icon-btn { border-radius: 50%; }
+html[data-style="magazine"] .group__head { font-family: 'Amiri', 'Readex', serif; font-size: 20px; border-bottom: 1px solid var(--m-rule); padding-bottom: 6px; }
+html[data-style="magazine"] .filter button { border-radius: 0; border-width: 0 0 2px; border-color: transparent; background: transparent; font-family: 'Amiri', 'Readex', serif; font-size: 15px; }
+html[data-style="magazine"] .filter button.active { background: transparent; color: var(--primary); border-color: var(--primary); }
+html[data-style="magazine"] .fab { border-radius: 0; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .4); }
+html[data-style="magazine"] .seg span, html[data-style="magazine"] .tag-toggle span, html[data-style="magazine"] .emojis button { border-radius: 2px; }
+html[data-style="magazine"] .login h1, html[data-style="magazine"] .hero-setup h1 { font-family: 'Amiri', 'Readex', serif; font-size: 32px; }
+html[data-style="magazine"] .theme-card.on, html[data-style="magazine"] .style-card.on { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+html[data-style="magazine"] .tk { border-inline-start: 3px solid var(--c); }

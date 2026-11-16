@@ -1,7 +1,7 @@
 // Developer setup: link a restaurant repo, brand it, set the owner password, print table QR codes.
 import {
   loadSite, normalizeConfig, normalizeMenu, saveDraft, initLang, setLang, getLang, t, tx, esc, imgSrc,
-  applyTheme, ICONS, toast, isRepoConfigured,
+  applyTheme, ICONS, toast, isRepoConfigured, STYLES,
 } from './core.js';
 import { GitHub, toJSONText } from './github.js';
 import { encryptSecret, cryptoAvailable, isStrongPassword } from './crypto.js';
@@ -55,7 +55,7 @@ function themeCard(th, on) {
 }
 function styleCard(id, on) {
   return `<button type="button" class="style-card ${on ? 'on' : ''}" data-style="${id}" aria-pressed="${on}">
-    <span class="style-mini style-mini--${id}"><i></i><i></i><i></i></span>
+    <span class="style-mini style-mini--${id}"><i></i><i></i><i></i><i></i></span>
     <b>${esc(t(`style_${id}`))}</b><small>${esc(t(`style_${id}_sub`))}</small></button>`;
 }
 const langMode = (c) => (c.languages.enabled.length > 1 ? 'ar_en' : c.languages.enabled[0] === 'en' ? 'en_only' : 'ar_only');
@@ -64,7 +64,7 @@ function render() {
   const c = S.config; const r = c.restaurant; const g = c.github;
   const curTheme = getTheme(themeIdOf(c.theme)).id;
   const primary = c.theme.primary || getTheme(curTheme).primary;
-  c.theme = { id: curTheme, primary, style: c.theme.style === 'glass' ? 'glass' : 'classic' };
+  c.theme = { id: curTheme, primary, style: STYLES.includes(c.theme.style) ? c.theme.style : 'classic' };
   applyTheme(c, { admin: true });
   document.title = t('setup_title');
   app.innerHTML = `
@@ -86,7 +86,7 @@ function render() {
       <section class="panel"><div class="panel__title"><span class="num-badge">2</span>${esc(t('s_theme'))}</div>
         <div class="theme-wrap">
           <div class="stack">
-            <div class="field"><span>${esc(t('design_style'))}</span><div class="styles" id="styles">${['classic', 'glass'].map((id) => styleCard(id, (c.theme.style || 'classic') === id)).join('')}</div></div>
+            <div class="field"><span>${esc(t('design_style'))}</span><div class="styles" id="styles">${STYLES.map((id) => styleCard(id, (c.theme.style || 'classic') === id)).join('')}</div></div>
             <div class="label">${esc(t('theme_label'))}</div>
             <div class="themes" id="themes">${THEMES.map((th) => themeCard(th, th.id === curTheme)).join('')}</div>
             <div class="field"><span>${esc(t('primary_color'))}</span><div class="swatches" id="swatches">
@@ -94,7 +94,7 @@ function render() {
               <input type="color" name="primary" value="${esc(primary)}" aria-label="${esc(t('primary_color'))}"></div></div>
           </div>
           <div class="phone-col"><div class="label">${esc(t('live_preview'))}</div>
-            <div class="phone"><iframe id="preview" title="preview" src="../?preview=1&t=4&skin=${encodeURIComponent(curTheme)}&primary=${encodeURIComponent(primary)}&style=${c.theme.style === 'glass' ? 'glass' : 'classic'}"></iframe></div></div>
+            <div class="phone"><iframe id="preview" title="preview" src="../?preview=1&t=4&skin=${encodeURIComponent(curTheme)}&primary=${encodeURIComponent(primary)}&style=${STYLES.includes(c.theme.style) ? c.theme.style : 'classic'}"></iframe></div></div>
         </div>
       </section>
 
@@ -237,7 +237,7 @@ function readForm() {
   const lm = f.langs.value;
   c.languages.enabled = lm === 'ar_en' ? ['ar', 'en'] : lm === 'en_only' ? ['en'] : ['ar'];
   c.languages.default = c.languages.enabled.includes(f.defLang.value) ? f.defLang.value : c.languages.enabled[0];
-  c.theme = { id: getTheme(themeIdOf(c.theme)).id, primary: f.primary.value, style: c.theme.style === 'glass' ? 'glass' : 'classic' };
+  c.theme = { id: getTheme(themeIdOf(c.theme)).id, primary: f.primary.value, style: STYLES.includes(c.theme.style) ? c.theme.style : 'classic' };
   c.tables.count = Math.max(1, Math.min(300, parseInt(v('tables'), 10) || 1));
 }
 
