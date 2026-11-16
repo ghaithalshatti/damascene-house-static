@@ -1,7 +1,7 @@
 // Developer setup: link a restaurant repo, brand it, set the owner password, print table QR codes.
 import {
   loadSite, normalizeConfig, normalizeMenu, saveDraft, initLang, setLang, getLang, t, tx, esc, imgSrc,
-  applyTheme, ICONS, toast, isRepoConfigured, STYLES,
+  applyTheme, ICONS, toast, isRepoConfigured, STYLES, withMeta,
 } from './core.js';
 import { GitHub, toJSONText } from './github.js';
 import { encryptSecret, cryptoAvailable, isStrongPassword, tokenHash } from './crypto.js';
@@ -318,6 +318,8 @@ async function publish() {
     r.logo = await ghPhoto(S.logo, r.logo, 'logo', files);
     r.cover = await ghPhoto(S.cover, r.cover, 'cover', files);
     files.push({ path: 'data/config.json', text: toJSONText(c) });
+    const page = await gh.readText('index.html').catch(() => null);
+    if (page) { const html = withMeta(page, c, defaultBase()); if (html !== page) files.push({ path: 'index.html', text: html }); }
     if (f.empty.checked) files.push({ path: 'data/menu.json', text: toJSONText({ updatedAt: new Date().toISOString(), categories: [], items: [] }) });
     await gh.commit('Restaurant setup', files);
     S.logo = { photo: null, removed: false }; S.cover = { photo: null, removed: false };

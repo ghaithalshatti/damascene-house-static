@@ -2,8 +2,7 @@
 import {
   loadSite, fetchJSON, isRepoConfigured, normalizeConfig, normalizeMenu, saveDraft, initLang, setLang, getLang,
   t, tx, esc, imgSrc, applyTheme, formatPrice, uid, normalizeSearch, ICONS, TAGS, ls,
-  toast, openSheet, closeSheet, confirmDialog,
-} from './core.js';
+  toast, openSheet, closeSheet, confirmDialog, withMeta } from './core.js';
 import { GitHub, toJSONText } from './github.js';
 import { decryptSecret, encryptSecret, cryptoAvailable, isStrongPassword } from './crypto.js';
 import { compressImage, blobToDataURL } from './image.js';
@@ -88,6 +87,7 @@ async function persist(message, { menu = false, config = false, add = [], remove
   remove.filter((p) => p && p.startsWith('images/')).forEach((p) => files.push({ path: p, delete: true }));
   if (menu) { A.menu.updatedAt = new Date().toISOString(); files.push({ path: 'data/menu.json', text: toJSONText(A.menu) }); }
   if (config) files.push({ path: 'data/config.json', text: toJSONText(A.config) });
+  if (config) { const page = await A.gh.readText('index.html').catch(() => null); if (page) { const html = withMeta(page, A.config, new URL('../', location.href).href); if (html !== page) files.push({ path: 'index.html', text: html }); } }
   if (auth) files.push({ path: 'data/auth.json', text: toJSONText(auth) });
   setSaving(true);
   try {

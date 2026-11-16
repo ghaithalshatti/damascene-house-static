@@ -257,3 +257,26 @@ export const TAGS = {
   spicy: { icon: 'flame', key: 'tag_spicy' },
   veg: { icon: 'leaf', key: 'tag_veg' },
 };
+
+// Link previews (WhatsApp, Facebook…) read the static HTML, not the app: write the restaurant's
+// name, tagline and cover/logo into index.html whenever the config is published.
+export function withMeta(html, cfg, base) {
+  const r = cfg.restaurant || {}; const L = cfg.languages?.default || 'ar';
+  const pick = (o) => (o && (o[L] || o.ar || o.en)) || '';
+  const name = pick(r.name) || 'Menu'; const desc = pick(r.tagline) || name;
+  const img = r.cover || r.logo; const imgUrl = img ? (/^https?:/.test(img) ? img : new URL(img, base).href) : '';
+  const e = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  const block = `<!--meta-->
+  <meta name="description" content="${e(desc)}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${e(name)}">
+  <meta property="og:description" content="${e(desc)}">
+  <meta property="og:url" content="${e(base)}">${imgUrl ? `
+  <meta property="og:image" content="${e(imgUrl)}">
+  <meta name="twitter:card" content="summary_large_image">` : ''}
+  <!--/meta-->`;
+  let h = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${e(name)}</title>`);
+  h = h.replace(/<meta name="theme-color" content="[^"]*">/, `<meta name="theme-color" content="${e(cfg.theme?.primary || '#B5532C')}">`);
+  h = h.includes('<!--meta-->') ? h.replace(/<!--meta-->[\s\S]*?<!--\/meta-->/, block) : h.replace(/<meta name="description"[^>]*>/, block);
+  return h;
+}
