@@ -1,7 +1,7 @@
 // Developer setup: link a restaurant repo, brand it, set the owner password, print table QR codes.
 import {
   loadSite, normalizeConfig, normalizeMenu, saveDraft, initLang, setLang, getLang, t, tx, esc, imgSrc,
-  applyTheme, ICONS, toast,
+  applyTheme, ICONS, toast, isRepoConfigured,
 } from './core.js';
 import { GitHub, toJSONText } from './github.js';
 import { encryptSecret, cryptoAvailable, isStrongPassword } from './crypto.js';
@@ -13,8 +13,20 @@ const app = document.getElementById('app');
 const S = { pending: {}, config: null, menu: null, gh: null, hasAuth: false, logo: { photo: null, removed: false }, cover: { photo: null, removed: false } };
 const PRESETS = ['#B5532C', '#C0392B', '#8E3B46', '#D97706', '#1F7A4D', '#0F766E', '#1D4ED8', '#4338CA', '#7C3AED', '#1F2937'];
 
+async function freshFile(g, path) {
+  try {
+    const api = (localStorage.getItem('rm:apiBase') || 'https://api.github.com').replace(/\/$/, '');
+    const r = await fetch(`${api}/repos/${g.owner}/${g.repo}/contents/${path}?ref=${encodeURIComponent(g.branch || 'main')}&v=${Date.now()}`, { cache: 'no-store', headers: { Accept: 'application/vnd.github.raw+json' } });
+    return r.ok ? await r.json() : null;
+  } catch { return null; }
+}
 async function boot() {
-  try { const s = await loadSite(); S.config = s.config; S.menu = s.menu; }
+  try {
+    const s = await loadSite(); S.config = s.config; S.menu = s.menu;
+    // A published site: read the latest config straight from the repo (GitHub Pages lags ~1 min after each save).
+    S.live = isRepoConfigured(S.config);
+    if (S.live) { const fresh = await freshFile(S.config.github, 'data/config.json'); if (fresh) S.config = normalizeConfig(fresh); }
+  }
   catch (e) { app.innerHTML = `<p class="err-msg">${esc(e.message)}</p>`; return; }
   initLang({ languages: { default: 'ar', enabled: ['ar', 'en'] } });
   // Prefill GitHub details when the page itself is served from GitHub Pages.
@@ -109,7 +121,7 @@ function render() {
       <section class="panel"><div class="panel__title"><span class="num-badge">6</span>${esc(t('s_menu'))}</div>
         <label class="check"><input type="checkbox" name="empty">${esc(t('start_empty'))}</label></section>
 
-      <div class="publish-bar"><button type="button" class="btn btn--primary btn--block" id="publishBtn">${ICONS.check}<span>${esc(t('publish_local'))}</span></button></div>
+      <div class="publish-bar"><button type="button" class="btn btn--primary btn--block" id="publishBtn">${ICONS.check}<span>${esc(t(S.live ? 'publish' : 'publish_local'))}</span></button></div>
       <section class="panel" id="linksPanel" hidden></section>
 
       <section class="panel" id="qrPanel"><div class="panel__title"><span class="num-badge">7</span>${esc(t('s_qr'))}</div>
@@ -173,7 +185,7 @@ function bind() {
   f.addEventListener('change', () => postPreview());
   for (const id of ['logo', 'cover']) bindPhoto(id, id === 'logo' ? { max: 512, quality: 0.9, alpha: true } : { max: 1600, quality: 0.8 });
   document.getElementById('testBtn').onclick = testConnection;
-  f.token.oninput = () => { document.querySelector('#publishBtn span').textContent = t(f.token.value.trim() ? 'publish' : 'publish_local'); };
+  f.token.oninput = () => { document.querySelector('#publishBtn span').textContent = t(f.token.value.trim() || S.live ? 'publish' : 'publish_local'); };
   document.getElementById('publishBtn').onclick = publish;
   bindQr(document.getElementById('qrPanel'), {
     getConfig: () => { readForm(); return S.config; },
@@ -274,6 +286,12 @@ async function publish() {
   const label = btn.innerHTML;
   btn.disabled = true; btn.innerHTML = `<span class="spinner"></span>${esc(t('saving'))}`;
   try {
+    if (!token && S.live) { // a published site can only be changed through GitHub
+      toast(t('token_needed'), 'err', 5000);
+      const st = document.getElementById('ghStatus'); st.className = 'status err'; st.textContent = t('token_needed');
+      f.token.scrollIntoView({ behavior: 'smooth', block: 'center' }); f.token.focus();
+      return;
+    }
     if (!token) { // local preview only
       const draft = structuredClone(c); draft.github = { owner: '', repo: '', branch: 'main' };
       draft.restaurant.logo = await localPhoto(S.logo, r.logo);
