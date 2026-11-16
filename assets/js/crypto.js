@@ -19,7 +19,13 @@ export async function encryptSecret(secret, password, iterations = ITERATIONS) {
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const key = await deriveKey(password, salt, iterations);
   const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(secret));
-  return { v: 1, kdf: 'PBKDF2-SHA256', iterations, salt: b64(salt), iv: b64(iv), data: b64(ct) };
+  return { v: 1, kdf: 'PBKDF2-SHA256', iterations, salt: b64(salt), iv: b64(iv), data: b64(ct), th: await tokenHash(secret) };
+}
+
+// Short fingerprint of the token (not reversible) so setup can tell when the token changed without the password.
+export async function tokenHash(token) {
+  const h = new Uint8Array(await crypto.subtle.digest('SHA-256', enc.encode(`rm-token:${token}`)));
+  return [...h.slice(0, 8)].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 // Throws on a wrong password (AES-GCM authentication fails).

@@ -82,6 +82,7 @@ function cardHTML(tg, cfg, pending) {
   const w = words(cfg.languages); const logo = cfg.restaurant.logo || '';
   return `<div class="qr-card" data-key="${tg.key}">
     <button type="button" class="qr-card__dl" data-dl="${tg.key}" title="${esc(t('download_png'))}">${ICONS.download}</button>
+    <a class="qr-card__open" href="${esc(tg.url)}" target="_blank" rel="noopener" title="${esc(t('qr_open'))}" aria-label="${esc(t('qr_open'))}">${ICONS.link}</a>
     <div class="qr-card__brand">${logo ? `<span class="mini"><img src="${esc(pending[logo] || imgSrc(logo))}" alt=""></span>` : ''}${esc(nameOf(cfg))}</div>
     <div class="qr-card__qr">${qrSVG(qrFor(tg.url))}</div>
     <div class="qr-card__scan">${w.scan.join('<br>')}</div>

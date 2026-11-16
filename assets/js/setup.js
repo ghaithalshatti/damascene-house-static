@@ -4,7 +4,7 @@ import {
   applyTheme, ICONS, toast, isRepoConfigured, STYLES,
 } from './core.js';
 import { GitHub, toJSONText } from './github.js';
-import { encryptSecret, cryptoAvailable, isStrongPassword } from './crypto.js';
+import { encryptSecret, cryptoAvailable, isStrongPassword, tokenHash } from './crypto.js';
 import { compressImage, blobToDataURL } from './image.js';
 import { qrControlsHTML, bindQr } from './qr.js';
 import { THEMES, getTheme, themeIdOf } from './themes.js';
@@ -25,7 +25,11 @@ async function boot() {
     const s = await loadSite(); S.config = s.config; S.menu = s.menu;
     // A published site: read the latest config straight from the repo (GitHub Pages lags ~1 min after each save).
     S.live = isRepoConfigured(S.config);
-    if (S.live) { const fresh = await freshFile(S.config.github, 'data/config.json'); if (fresh) S.config = normalizeConfig(fresh); }
+    if (S.live) {
+      const [fresh, auth] = await Promise.all([freshFile(S.config.github, 'data/config.json'), freshFile(S.config.github, 'data/auth.json')]);
+      if (fresh) S.config = normalizeConfig(fresh);
+      S.hasAuth = !!auth?.data; // an owner password already exists: leaving the fields empty keeps it
+    }
   }
   catch (e) { app.innerHTML = `<p class="err-msg">${esc(e.message)}</p>`; return; }
   initLang({ languages: { default: 'ar', enabled: ['ar', 'en'] } });
@@ -114,8 +118,8 @@ function render() {
       </div></section>
 
       <section class="panel"><div class="panel__title"><span class="num-badge">5</span>${esc(t('s_password'))}</div><div class="stack">
-        <div class="grid2">${field(t('new_password'), `<input class="input" type="password" name="pw1" autocomplete="new-password">`)}${field(t('confirm_password'), `<input class="input" type="password" name="pw2" autocomplete="new-password">`)}</div>
-        <p class="hint">${esc(t('pw_rules'))} <span id="pwKeep" hidden>${esc(t('pw_keep'))}</span></p>
+        <div class="grid2">${field(t('new_password'), `<input class="input" type="password" name="pw1" autocomplete="new-password" placeholder="${S.hasAuth ? esc(t('pw_keep_ph')) : ''}">`)}${field(t('confirm_password'), `<input class="input" type="password" name="pw2" autocomplete="new-password">`)}</div>
+        <p class="hint">${esc(t('pw_rules'))} <span id="pwKeep" ${S.hasAuth ? '' : 'hidden'}>${esc(t('pw_keep'))}</span></p>
       </div></section>
 
       <section class="panel"><div class="panel__title"><span class="num-badge">6</span>${esc(t('s_menu'))}</div>
@@ -308,6 +312,8 @@ async function publish() {
     const files = [];
     const auth = await gh.readJSON('data/auth.json');
     if (!auth?.data && !pw1) throw new Error(t('pw_required_first'));
+    // Same password, new token: the stored (old) token must be re-encrypted, which needs the password.
+    if (!pw1 && auth?.th && auth.th !== await tokenHash(token)) throw new Error(t('pw_token_changed'));
     if (pw1) files.push({ path: 'data/auth.json', text: toJSONText(await encryptSecret(token, pw1)) });
     r.logo = await ghPhoto(S.logo, r.logo, 'logo', files);
     r.cover = await ghPhoto(S.cover, r.cover, 'cover', files);
