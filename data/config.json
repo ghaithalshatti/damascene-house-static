@@ -28,8 +28,9 @@
     }
   },
   "theme": {
-    "id": "ocean",
-    "primary": "#0e6f8f"
+    "id": "ember",
+    "primary": "#e8590c",
+    "style": "glass"
   },
   "currency": {
     "ar": "ل.س",
